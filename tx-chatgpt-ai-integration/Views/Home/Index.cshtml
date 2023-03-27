@@ -11,9 +11,7 @@
 <script>
     TXTextControl.addEventListener("ribbonTabsLoaded", function (e) {
 
-        // get the ribbon tab content and add it after the Merge Fields group in
-        // the reporting tab
-        $.get("/RibbonExtensions/ChatGpt/chatgpt_group.html?test=0", function (data) {
+        $.get("/RibbonExtensions/ChatGpt/chatgpt_group.html", function (data) {
 
             $("#ribbonGroupClipboard").after(data);
 

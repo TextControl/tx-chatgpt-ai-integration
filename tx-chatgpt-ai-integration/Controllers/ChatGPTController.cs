@@ -18,7 +18,7 @@ namespace tx_chatgpt_ai_integration.Controllers {
 
          HttpClient client = new HttpClient();  
 
-         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "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");
+         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Models.Constants.OPENAI_API_KEY);
 
          var openAIPrompt = new {
             model = "text-davinci-003",

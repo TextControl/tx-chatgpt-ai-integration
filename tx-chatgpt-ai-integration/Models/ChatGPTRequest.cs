@@ -15,8 +15,8 @@
    }
 
    public class Constants {
-      public string OPENAI_MODEL = "text-davinci-003";
-      public string OPENAI_API_KEY = "";
+      public static string OPENAI_MODEL = "text-davinci-003";
+      public static string OPENAI_API_KEY = "";
 
       public static readonly Dictionary<string, string> Prompts = new Dictionary<string, string>() {
             { "formal", "Return the text after the colon in a more professional way and provide the results as plain text: " },
