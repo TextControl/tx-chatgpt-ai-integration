@@ -1,0 +1,192 @@
+﻿<style>
+
+    .txcustom-menuitem {
+        pointer-events: all;
+    }
+
+    .txcustom-menuitem:hover {
+        background-color: var(--hover-emphasis-color) !important;
+    }
+
+    #chatgpt-spinner {
+        display: none;
+        position: fixed;
+    }
+
+</style>
+
+
+
+
+
+
+<div class="ribbon-group" id="ribbonGroupOpenAI" data-applicationmodes="0">
+    <div class="ribbon-group-content">
+
+        <div id="newTabButtonContainer"
+             style="display: inline-block; float: left; margin-right: 5px">
+
+             <div id="ribbonTabHome_btnChatGPTTone" data-name="ribbonTabHome_mnuChatGPTTone" class="ribbon-button ribbon-button-big txcustom-button">
+                 <div class="ribbon-button-big-image-container">
+                     <img class="ribbon-button-big-image" style="height: 32px; width: 32px;" src="/RibbonExtensions/ChatGPT/images/chatgpt.svg">
+                 </div>
+                <div class="ribbon-button-big-label-container">
+                    <p class="ribbon-button-label">
+                        <span class="ribbon-button-label-text">Tone</span>
+                        <span class="drop-down-arrow-large"><br> ▼</span>
+                    </p>
+                </div>
+               
+            </div>
+
+            <ul class="dropDownMenu txui-menu txui-widget txui-widget-content txui-corner-all" id="ribbonTabHome_mnuChatGPTTone" role="menu" tabindex="0" style="top: 100px; position: absolute; display: none; width: 122px;">
+	            <li class="txui-menu-item-small txui-menu-item txcustom-menuitem" id="ribbonTabHome_mnuChatGPTTone_Formal" role="presentation">
+                    <a onClick="requestAPI('formal')" class="txui-corner-all" tabindex="-1" role="menuitem">
+	                    <div class="small-menu-item-caption-container">
+		                    <p>
+			                    Formal
+		                    </p>
+	                    </div>
+	                </a>
+                </li>
+                <li class="txui-menu-item-small txui-menu-item txcustom-menuitem" id="ribbonTabHome_mnuChatGPTTone_Formal" role="presentation">
+                    <a onClick="requestAPI('informal')" class="txui-corner-all" tabindex="-1" role="menuitem">
+	                    <div class="small-menu-item-caption-container">
+		                    <p>
+			                    Informal
+		                    </p>
+	                    </div>
+	                </a>
+                </li>
+                <li class="txui-menu-item-small txui-menu-item txcustom-menuitem" id="ribbonTabHome_mnuChatGPTTone_Formal" role="presentation">
+                    <a onClick="requestAPI('optimistic')" class="txui-corner-all" tabindex="-1" role="menuitem">
+	                    <div class="small-menu-item-caption-container">
+		                    <p>
+			                    Optimistic
+		                    </p>
+	                    </div>
+	                </a>
+                </li>
+                 <li class="txui-menu-item-small txui-menu-item txcustom-menuitem" id="ribbonTabHome_mnuChatGPTTone_Formal" role="presentation">
+                    <a onClick="requestAPI('encouraging')" class="txui-corner-all" tabindex="-1" role="menuitem">
+	                    <div class="small-menu-item-caption-container">
+		                    <p>
+			                    Encouraging
+		                    </p>
+	                    </div>
+	                </a>
+                </li>
+            </ul>
+            
+        </div>
+
+        <div id="newTabButtonContainer"
+             style="display: inline-block; float: left; margin-right: 5px">
+
+             <div id="ribbonTabHome_btnChatGPTRephrase" data-name="ribbonTabHome_mnuChatGPTRephrase" class="ribbon-button ribbon-button-big txcustom-button">
+                 <div class="ribbon-button-big-image-container">
+                     <img class="ribbon-button-big-image" style="height: 32px; width: 32px;" src="/RibbonExtensions/ChatGPT/images/chatgpt.svg">
+                 </div>
+                <div class="ribbon-button-big-label-container">
+                    <p class="ribbon-button-label">
+                        <span class="ribbon-button-label-text">Rephrase</span>
+                        <span class="drop-down-arrow-large"><br> ▼</span>
+                    </p>
+                </div>
+               
+            </div>
+
+            <ul class="dropDownMenu txui-menu txui-widget txui-widget-content txui-corner-all" id="ribbonTabHome_mnuChatGPTRephrase" role="menu" tabindex="0" style="top: 100px; position: absolute; display: none; width: 122px;">
+	            <li class="txui-menu-item-small txui-menu-item txcustom-menuitem" role="presentation">
+                    <a onClick="requestAPI('expand')" class="txui-corner-all" tabindex="-1" role="menuitem">
+	                    <div class="small-menu-item-caption-container">
+		                    <p>
+			                    Expand
+		                    </p>
+	                    </div>
+	                </a>
+                </li>
+                 <li class="txui-menu-item-small txui-menu-item txcustom-menuitem" role="presentation">
+                    <a onClick="requestAPI('shorten')" class="txui-corner-all" tabindex="-1" role="menuitem">
+	                    <div class="small-menu-item-caption-container">
+		                    <p>
+			                    Shorten
+		                    </p>
+	                    </div>
+	                </a>
+                </li>
+            </ul>
+
+            
+        </div>
+
+
+    </div>
+    <!-- Ribbon group label -->
+    <div class="ribbon-group-label-container">
+        <p class="ribbon-group-label">Open AI</p>
+    </div>
+</div>
+
+<div id="chatgpt-spinner" class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+
+    $(".txcustom-button").click(function(event) { 
+       removeCustomMenu();
+       document.getElementById(this.getAttribute("data-name")).style.display = "block";
+       event.stopPropagation();
+       document.addEventListener("click", function() { removeCustomMenu(); });
+    });
+
+    function removeCustomMenu() {
+        $(".dropDownMenu").css("display", "none");
+    }
+
+    function requestAPI(requestedType) {
+
+        removeCustomMenu();
+
+        var offset = $("#mainCanvas").offset();
+        $("#chatgpt-spinner").css({top: offset.top, left: offset.left, display: "block"});
+
+        var serviceURL = "ChatGPT/RequestAPI";
+        
+        TXTextControl.inputPosition.getTextPosition(function(pos) {
+            TXTextControl.paragraphs.getItemAtTextPosition(pos, function(par) {
+                par.getText(function(content) { 
+
+                    $.ajax({
+                        type: "POST",
+                        url: serviceURL,
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            text: content,
+                            type: requestedType
+                        }),
+                        success: successFunc,
+                        error: errorFunc
+                    });
+
+                    function successFunc(data) {
+                        $("#chatgpt-spinner").css({display: "none"});
+
+                        par.select(function() {
+                            TXTextControl.selection.setText(data);
+                        })
+                    }
+
+                    function errorFunc(data) {
+                        console.log(data);
+                        $("#chatgpt-spinner").css({display: "none"});
+                    }
+                
+                })
+            })
+        });
+    }
+</script>

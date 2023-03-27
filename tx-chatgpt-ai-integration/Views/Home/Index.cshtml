@@ -1,0 +1,24 @@
+﻿@using TXTextControl.Web.MVC
+
+@{
+	var sDocument = "<html><body><p>Our mission is to help businesses increase their business to retain and attract new customers.</p></body></html>";
+}
+
+@Html.TXTextControl().TextControl(settings => {
+	}).LoadText(sDocument, TXTextControl.Web.StringStreamType.HTMLFormat).Render()
+
+@section scripts {
+<script>
+    TXTextControl.addEventListener("ribbonTabsLoaded", function (e) {
+
+        // get the ribbon tab content and add it after the Merge Fields group in
+        // the reporting tab
+        $.get("/RibbonExtensions/ChatGpt/chatgpt_group.html?test=0", function (data) {
+
+            $("#ribbonGroupClipboard").after(data);
+
+        });
+
+    });
+</script>
+}
