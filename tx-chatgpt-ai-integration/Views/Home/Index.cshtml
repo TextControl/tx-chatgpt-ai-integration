@@ -1,11 +1,13 @@
 ﻿@using TXTextControl.Web.MVC
 
-@{
-	var sDocument = "<html><body><p>Our mission is to help businesses increase their business to retain and attract new customers.</p></body></html>";
-}
+<div style="width: 100%; height: 800px;">
 
 @Html.TXTextControl().TextControl(settings => {
-	}).LoadText(sDocument, TXTextControl.Web.StringStreamType.HTMLFormat).Render()
+    settings.Dock = TXTextControl.Web.DockStyle.Fill;
+}
+).Render()
+
+</div>
 
 @section scripts {
 <script>
